@@ -1,5 +1,8 @@
 package de.longuyen
 
 fun main() {
-    FlappyBird()
+    val context = Context()
+    while(true) {
+        context.run()
+    }
 }

@@ -10,29 +10,29 @@ import kotlin.math.roundToInt
 class Bird {
     var x: Float = WIDTH / 2.toFloat()
     var y: Float = HEIGHT / 2.toFloat()
-    private var vx = 0f
-    private var vy = 0f
+    private var velocityX = 0f
+    private var velocityY = 0f
     private var img: Image = ImageIO.read(File("data/bird.png"))
 
-    fun physics() {
-        x += vx
-        y += vy
-        vy += 0.5f
-    }
-
-    fun update(g: Graphics) {
+    fun paint(g: Graphics) {
         g.color = Color.BLACK
         g.drawImage(img, (x - RAD).roundToInt(), (y - RAD).roundToInt(), 2 * RAD, 2 * RAD, null)
     }
 
+    fun update() {
+        x += velocityX
+        y += velocityY
+        velocityY += 0.5f
+    }
+
     fun jump() {
-        vy = -8f
+        velocityY = -8f
     }
 
     fun reset() {
-        x = 640 / 2.toFloat()
-        y = 640 / 2.toFloat()
-        vy = 0f
-        vx = vy
+        x = WIDTH / 2.toFloat()
+        y = WIDTH / 2.toFloat()
+        velocityY = 0f
+        velocityX = 0f
     }
 }
