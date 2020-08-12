@@ -4,7 +4,7 @@
 
 Neural network learns to play Flappy Bird. The algorithm is simple:
 - Initialize a population of 15 birds. Each bird has a random brain with random parameters. A brain would look like following
-<img src="data/network.png"></img>
+<img src="data/network.png" width="300"></img>
 
 # References
 - [Thanks to @john525 for flappy bird starter code. I am not a good game developer :)](https://github.com/john525/Flappy-Bird-Clone)
