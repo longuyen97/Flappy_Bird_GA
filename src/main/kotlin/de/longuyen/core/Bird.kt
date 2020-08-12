@@ -4,8 +4,8 @@ import de.longuyen.FIELD_HEIGHT
 import de.longuyen.FIELD_WIDTH
 
 class Bird {
-    var x: Float = FIELD_WIDTH / 2.toFloat()
-    var y: Float = FIELD_HEIGHT / 2.toFloat()
+    var x: Float = FIELD_WIDTH / 3.toFloat()
+    var y: Float = FIELD_HEIGHT / 3.toFloat()
     private var velocityX = 0f
     private var velocityY = 0f
 

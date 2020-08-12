@@ -6,7 +6,6 @@ import de.longuyen.RAD
 import de.longuyen.core.Context
 import java.awt.Color
 import java.awt.Graphics
-import java.awt.Graphics2D
 import java.awt.event.KeyEvent
 import java.awt.event.KeyListener
 import java.awt.image.BufferedImage
@@ -49,8 +48,22 @@ class GUI(private val context: Context) : JFrame(), KeyListener {
         canvas.drawImage(bird, (context.bird.x - RAD).roundToInt(), (context.bird.y - RAD).roundToInt(), 2 * RAD, 2 * RAD, null)
         canvas.color = Color.BLUE
         for (pipe in context.pipes) {
-            canvas.fillRect(pipe.x, pipe.y, pipe.width, pipe.height)
+            canvas.fillRect(pipe.first.x, pipe.first.y, pipe.first.width, pipe.first.height)
+            canvas.fillRect(pipe.second.x, pipe.second.y, pipe.second.width, pipe.second.height)
         }
+        for (pipe in context.crossedPipes) {
+            canvas.fillRect(pipe.first.x, pipe.first.y, pipe.first.width, pipe.first.height)
+            canvas.fillRect(pipe.second.x, pipe.second.y, pipe.second.width, pipe.second.height)
+        }
+
+        canvas.color = Color.RED
+        if(context.pipes.isNotEmpty()) {
+            canvas.drawLine(context.bird.x.toInt(), context.bird.y.toInt(), context.pipes[0].first.x, context.pipes[0].first.y + context.pipes[0].first.height)
+            canvas.drawLine(context.bird.x.toInt(), context.bird.y.toInt(), context.pipes[0].second.x, context.pipes[0].second.y)
+        }
+        canvas.drawLine(context.bird.x.toInt(), context.bird.y.toInt(), context.bird.x.toInt(), 0)
+        canvas.drawLine(context.bird.x.toInt(), context.bird.y.toInt(), context.bird.x.toInt(), FIELD_HEIGHT)
+        canvas.drawLine(0, context.bird.y.toInt(), FIELD_WIDTH, context.bird.y.toInt())
         panel.repaint()
     }
 
