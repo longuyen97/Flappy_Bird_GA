@@ -22,19 +22,19 @@ class Chromosome(random: Boolean, private val size: Int) {
     }
 
     fun crossoverNoise(other: Chromosome, mutationprob: Double): Chromosome {
-        val newdna = Chromosome(false, data.size)
-        val numswaps = data.size / 10
-        val swaps = IntArray(numswaps + 1)
+        val newDna = Chromosome(false, data.size)
+        val numberOfSwaps = data.size / 10
+        val swaps = IntArray(numberOfSwaps + 1)
         for (i in 0 until swaps.size - 1) {
             swaps[i] = floor(Math.random() * data.size).toInt()
         }
-        swaps[numswaps] = data.size //save last
+        swaps[numberOfSwaps] = data.size //save last
         Arrays.sort(swaps)
-        var swapidx = 0
+        var swapIndex = 0
         var that = true
         for (i in data.indices) {
-            if (i >= swaps[swapidx]) {
-                swapidx++
+            if (i >= swaps[swapIndex]) {
+                swapIndex++
                 that = !that
             }
             var d: Byte = 0
@@ -44,9 +44,9 @@ class Chromosome(random: Boolean, private val size: Int) {
                 other.data[i]
             }
             d = (d + ((random.nextGaussian() * mutationprob * 256).toByte())).toByte()
-            newdna.data[i] = d
+            newDna.data[i] = d
         }
-        return newdna
+        return newDna
     }
 
     fun mutateNoise(prob: Double, mag: Double) {

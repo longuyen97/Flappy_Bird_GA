@@ -4,16 +4,16 @@ import de.longuyen.BIAS
 import kotlin.math.exp
 
 
-fun sigmoid(x: Double): Double {
-    return 1.0 / (1 + exp(-x / 2.0))
-}
-
 class Layer(private var prev: Layer?, size: Int) {
     var output: DoubleArray = DoubleArray(size)
     var parameters: Array<ByteArray>
 
     init {
         parameters = if (prev != null) Array(size) { ByteArray(prev!!.output.size + 1) } else Array(0) { ByteArray(0) }
+    }
+
+    private fun sigmoid(x: Double): Double {
+        return 1.0 / (1 + exp(-x / 2.0))
     }
 
     fun activate() {

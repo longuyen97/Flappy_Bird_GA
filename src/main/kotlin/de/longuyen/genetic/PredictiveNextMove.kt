@@ -6,7 +6,7 @@ import de.longuyen.SYMMETRICAL
 import de.longuyen.core.Context
 import de.longuyen.core.DecisionMaker
 
-class ChromosomeNextMove(private val chromosome: Chromosome): DecisionMaker {
+class PredictiveNextMove(private val chromosome: Chromosome): DecisionMaker {
 
     override fun jump(context: Context): Boolean {
         val valRawInput = context.encode()

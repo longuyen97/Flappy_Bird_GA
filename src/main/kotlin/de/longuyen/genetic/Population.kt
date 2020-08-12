@@ -21,7 +21,7 @@ class Population(private val context: Context, size: Int = 20) {
 
     fun fitAndSort() {
         chromosomes.stream().forEach {
-            it.fitness = context.run(Random(42), ChromosomeNextMove(it), object: Callback {
+            it.fitness = context.run(Random(42), PredictiveNextMove(it), object: Callback {
                 override fun callback() {}
             }, 0).fitness
         }

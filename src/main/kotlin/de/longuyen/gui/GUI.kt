@@ -41,7 +41,7 @@ class GUI(private val context: Context) : JFrame(), KeyListener {
         panel.revalidate()
     }
 
-    fun update() {
+    fun update(generation: Int, fitness: Double) {
         canvas.color = Color.WHITE
         canvas.fillRect(0, 0, FIELD_WIDTH, FIELD_HEIGHT)
 
@@ -82,14 +82,12 @@ class GUI(private val context: Context) : JFrame(), KeyListener {
             )
         }
 
-        val encoded = context.encode()
         canvas.drawLine(context.bird.x.toInt(), context.bird.y.toInt(), context.bird.x.toInt(), FIELD_HEIGHT)
-        canvas.drawString("Bird's velocity: ${encoded.velocity}", 10, 10)
-        canvas.drawString("Bird's position: ${encoded.birdX}, ${encoded.birdY}", 10, 20)
-        canvas.drawString("Top pipe's position: ${encoded.topPipeX}, ${encoded.topPipeY}", 10, 30)
-        canvas.drawString("Bottom pipe's position: ${encoded.bottomPipeX}, ${encoded.bottomPipeY}", 10, 40)
-        canvas.drawString("Top pipe's distance: ${encoded.topPipeDistance}", 10, 50)
-        canvas.drawString("Bottom pipe's distance: ${encoded.bottomPipeDistance}", 10, 60)
+
+        canvas.color = Color.RED
+        canvas.drawString("Generation $generation", 0, 20)
+        canvas.drawString("Fitness $fitness", 0, 30)
+
         panel.repaint()
     }
 
