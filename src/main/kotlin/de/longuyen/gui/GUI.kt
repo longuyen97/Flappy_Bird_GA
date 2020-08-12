@@ -16,11 +16,12 @@ import javax.swing.JPanel
 import kotlin.math.roundToInt
 
 class GUI(private val context: Context) : JFrame(), KeyListener {
-    private val image : BufferedImage = BufferedImage(FIELD_WIDTH, FIELD_HEIGHT, BufferedImage.TYPE_INT_RGB)
+    private val image: BufferedImage = BufferedImage(FIELD_WIDTH, FIELD_HEIGHT, BufferedImage.TYPE_INT_RGB)
     private val canvas: Graphics = image.graphics
-    private var bird = ImageIO.read(File("data/bird.png"))
+    private val bird = ImageIO.read(File("data/bird.png"))
+    private val background = ImageIO.read(File("data/background.png"))
 
-    private val panel : JPanel = object: JPanel() {
+    private val panel: JPanel = object : JPanel() {
         override fun paintComponent(g: Graphics) {
             super.paintComponent(g)
             g.drawImage(image, 0, 0, FIELD_WIDTH, FIELD_HEIGHT, this)
@@ -40,13 +41,22 @@ class GUI(private val context: Context) : JFrame(), KeyListener {
         panel.revalidate()
     }
 
-    fun update(){
+    fun update() {
         canvas.color = Color.WHITE
         canvas.fillRect(0, 0, FIELD_WIDTH, FIELD_HEIGHT)
 
         canvas.color = Color.BLACK
-        canvas.drawImage(bird, (context.bird.x - RAD).roundToInt(), (context.bird.y - RAD).roundToInt(), 2 * RAD, 2 * RAD, null)
-        canvas.color = Color.BLUE
+        canvas.drawImage(background, 0, 0, FIELD_WIDTH, FIELD_HEIGHT, null)
+        canvas.drawImage(
+            bird,
+            (context.bird.x - RAD).roundToInt(),
+            (context.bird.y - RAD).roundToInt(),
+            2 * RAD,
+            2 * RAD,
+            null
+        )
+
+        canvas.color = Color.GREEN
         for (pipe in context.pipes) {
             canvas.fillRect(pipe.first.x, pipe.first.y, pipe.first.width, pipe.first.height)
             canvas.fillRect(pipe.second.x, pipe.second.y, pipe.second.width, pipe.second.height)
@@ -57,13 +67,29 @@ class GUI(private val context: Context) : JFrame(), KeyListener {
         }
 
         canvas.color = Color.RED
-        if(context.pipes.isNotEmpty()) {
-            canvas.drawLine(context.bird.x.toInt(), context.bird.y.toInt(), context.pipes[0].first.x, context.pipes[0].first.y + context.pipes[0].first.height)
-            canvas.drawLine(context.bird.x.toInt(), context.bird.y.toInt(), context.pipes[0].second.x, context.pipes[0].second.y)
+        if (context.pipes.isNotEmpty()) {
+            canvas.drawLine(
+                context.bird.x.toInt(),
+                context.bird.y.toInt(),
+                context.pipes[0].first.x,
+                context.pipes[0].first.y + context.pipes[0].first.height
+            )
+            canvas.drawLine(
+                context.bird.x.toInt(),
+                context.bird.y.toInt(),
+                context.pipes[0].second.x,
+                context.pipes[0].second.y
+            )
         }
-        canvas.drawLine(context.bird.x.toInt(), context.bird.y.toInt(), context.bird.x.toInt(), 0)
+
+        val encoded = context.encode()
         canvas.drawLine(context.bird.x.toInt(), context.bird.y.toInt(), context.bird.x.toInt(), FIELD_HEIGHT)
-        canvas.drawLine(0, context.bird.y.toInt(), FIELD_WIDTH, context.bird.y.toInt())
+        canvas.drawString("Bird's velocity: ${encoded.velocity}", 10, 10)
+        canvas.drawString("Bird's position: ${encoded.birdX}, ${encoded.birdY}", 10, 20)
+        canvas.drawString("Top pipe's position: ${encoded.topPipeX}, ${encoded.topPipeY}", 10, 30)
+        canvas.drawString("Bottom pipe's position: ${encoded.bottomPipeX}, ${encoded.bottomPipeY}", 10, 40)
+        canvas.drawString("Top pipe's distance: ${encoded.topPipeDistance}", 10, 50)
+        canvas.drawString("Bottom pipe's distance: ${encoded.bottomPipeDistance}", 10, 60)
         panel.repaint()
     }
 
@@ -71,11 +97,12 @@ class GUI(private val context: Context) : JFrame(), KeyListener {
     }
 
     override fun keyPressed(p0: KeyEvent?) {
-        if(p0 != null){
-            if(p0.keyCode == KeyEvent.VK_SPACE){
+        if (p0 != null) {
+            if (p0.keyCode == KeyEvent.VK_SPACE) {
                 context.bird.jump()
             }
-        }}
+        }
+    }
 
     override fun keyReleased(p0: KeyEvent?) {}
 }

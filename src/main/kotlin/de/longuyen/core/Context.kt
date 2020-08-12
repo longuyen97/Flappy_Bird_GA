@@ -4,15 +4,42 @@ import de.longuyen.FIELD_HEIGHT
 import de.longuyen.FIELD_WIDTH
 import de.longuyen.PIPE_SPACE
 import de.longuyen.PIPE_WIDTH
+import java.awt.Point
 import java.awt.Rectangle
 import java.util.*
 
 data class Result(val steps: Long, var fitness: Double)
 
+class ContextEncode(
+    val velocity: Float,
+    val birdX: Float,
+    val birdY: Float,
+    val topPipeX: Float,
+    val topPipeY: Float,
+    val bottomPipeX: Float,
+    val bottomPipeY: Float,
+    val topPipeDistance: Float,
+    val bottomPipeDistance: Float
+)
+
 class Context() {
     val bird = Bird()
     val pipes = mutableListOf<Pair<Rectangle, Rectangle>>()
     val crossedPipes = mutableListOf<Pair<Rectangle, Rectangle>>()
+
+    fun encode() : ContextEncode {
+        return ContextEncode(
+            bird.velocityY,
+            bird.x,
+            bird.y,
+            pipes[0].first.x.toFloat(),
+            pipes[0].first.y.toFloat(),
+            pipes[0].second.x.toFloat(),
+            pipes[0].second.y.toFloat(),
+            Point(bird.x.toInt(), bird.y.toInt()).distance(Point(pipes[0].first.x, pipes[0].first.y)).toFloat(),
+            Point(bird.x.toInt(), bird.y.toInt()).distance(Point(pipes[0].second.x, pipes[0].second.y)).toFloat()
+        )
+    }
 
     fun run(random: Random, decisionMaker: DecisionMaker, callback: Callback, sleep: Long = 100): Result {
         var fitness = 0.0
@@ -21,7 +48,7 @@ class Context() {
         while (!lost) {
             bird.update()
             if (steps % 90L == 0L) {
-                val topPipeHeight = random.nextInt(170 - 100 + 1) + 70
+                val topPipeHeight = random.nextInt(200 - 130 + 1) + 130
                 val topPipe = Rectangle(FIELD_WIDTH - PIPE_WIDTH, 0, PIPE_WIDTH, topPipeHeight)
 
                 val bottomPipeHeight = FIELD_HEIGHT - (topPipeHeight + PIPE_SPACE)
@@ -46,6 +73,7 @@ class Context() {
                     disappearedPipes.add(pipe)
                 }
                 if (pipe.first.x + pipe.first.width < bird.x) {
+                    fitness += 15.0
                     crossedPipes.add(pipe)
                 }
                 if (pipe.first.contains(bird.x.toInt(), bird.y.toInt()) || pipe.second.contains(bird.x.toInt(), bird.y.toInt())) {
@@ -71,6 +99,7 @@ class Context() {
         }
         bird.reset()
         pipes.clear()
+        crossedPipes.clear()
         return Result(steps, fitness)
     }
 }

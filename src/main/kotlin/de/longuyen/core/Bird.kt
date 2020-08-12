@@ -7,7 +7,7 @@ class Bird {
     var x: Float = FIELD_WIDTH / 3.toFloat()
     var y: Float = FIELD_HEIGHT / 3.toFloat()
     private var velocityX = 0f
-    private var velocityY = 0f
+    var velocityY = 0f
 
     fun update() {
         x += velocityX
