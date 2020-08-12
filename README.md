@@ -5,7 +5,7 @@
 Neural network learns to play Flappy Bird. The algorithm is simple:
 - Initialize a population of 15 birds. Each bird has a random brain with random parameters. A brain would look like following
 
-<img src="data/network.png" width="300"></img>
+<img src="data/network.png" width="450"></img>
 
 Each parameter ``Wij`` will be generated randomly at the beginning. The input is the current velocity of the bird, distance 
 between the bird and the next pipes, the location of the next pipes, etc. The last neuron of the network will indicates for each input
