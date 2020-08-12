@@ -41,19 +41,17 @@ class Context() {
         )
     }
 
-    fun run(random: Random, decisionMaker: DecisionMaker, callback: Callback, sleep: Long = 100): Result {
+    fun run(random: Random, decisionMaker: DecisionMaker, callback: Callback, sleep: Long = 100, maxSteps: Long = 100000L): Result {
         var fitness = 0.0
         var steps = 0L
         var lost = false
-        while (!lost) {
+        while (!lost && steps < maxSteps) {
             bird.update()
             if (steps % 90L == 0L) {
                 val topPipeHeight = random.nextInt(200 - 130 + 1) + 130
                 val topPipe = Rectangle(FIELD_WIDTH - PIPE_WIDTH, 0, PIPE_WIDTH, topPipeHeight)
 
-                val bottomPipeHeight = FIELD_HEIGHT - (topPipeHeight + PIPE_SPACE)
-                val bottomPipe = Rectangle(FIELD_WIDTH - PIPE_WIDTH, bottomPipeHeight, PIPE_WIDTH, bottomPipeHeight)
-
+                val bottomPipe = Rectangle(topPipe.x, topPipe.y + topPipe.height + PIPE_SPACE, PIPE_WIDTH, FIELD_HEIGHT - (topPipe.y + topPipe.height + PIPE_SPACE))
                 pipes.add(Pair(topPipe, bottomPipe))
             }
 

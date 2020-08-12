@@ -10,7 +10,7 @@ import java.util.*
 fun main() {
     val context = Context()
     val gui = GUI(context)
-    val population = Population(context, 20)
+    val population = Population(context, 15)
     population.fitAndSort()
     var max = population.fittest().fitness
     var generation = 0

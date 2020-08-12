@@ -88,6 +88,14 @@ class GUI(private val context: Context) : JFrame(), KeyListener {
         canvas.drawString("Generation $generation", 0, 20)
         canvas.drawString("Fitness $fitness", 0, 30)
 
+        val encoded = context.encode()
+        canvas.drawString("Bird's velocity: ${encoded.velocity}", context.bird.x.toInt(), (context.bird.y + 30).toInt())
+        canvas.drawString("Bird's position: ${encoded.birdX}, ${encoded.birdY}",context.bird.x.toInt(), (context.bird.y + 40).toInt())
+        canvas.drawString("Top pipe's position: ${encoded.topPipeX}, ${encoded.topPipeY}", context.bird.x.toInt(), (context.bird.y + 50).toInt())
+        canvas.drawString("Bottom pipe's position: ${encoded.bottomPipeX}, ${encoded.bottomPipeY}", context.bird.x.toInt(), (context.bird.y + 60).toInt())
+        canvas.drawString("Top pipe's distance: ${encoded.topPipeDistance}",context.bird.x.toInt(), (context.bird.y + 70).toInt())
+        canvas.drawString("Bottom pipe's distance: ${encoded.bottomPipeDistance}", context.bird.x.toInt(), (context.bird.y + 80).toInt())
+
         panel.repaint()
     }
 
