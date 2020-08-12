@@ -2,7 +2,7 @@ package de.longuyen.genetic
 
 import de.longuyen.MAX_DISTANCE
 import de.longuyen.MAX_VELOCITY
-import de.longuyen.STAGE_SIZES
+import de.longuyen.BRAIN_SIZES
 import de.longuyen.SYMMETRICAL
 import de.longuyen.core.Context
 import de.longuyen.core.DecisionMaker
@@ -21,7 +21,7 @@ class PredictiveNextMove(private val chromosome: Chromosome) : DecisionMaker {
             valRawInput.topPipeDistance / MAX_DISTANCE,
             valRawInput.bottomPipeDistance / MAX_DISTANCE
         )
-        val net = Brain(STAGE_SIZES)
+        val net = Brain(BRAIN_SIZES)
         net.loadParameters(chromosome.data, SYMMETRICAL)
         val ret = net.forwardPropagation(input)
         return ret[0] > 0.5

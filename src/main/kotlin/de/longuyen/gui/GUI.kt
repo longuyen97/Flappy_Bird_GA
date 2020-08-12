@@ -36,6 +36,7 @@ class GUI(private val context: Context) : JFrame(), KeyListener {
         isResizable = false
         isVisible = true
         defaultCloseOperation = EXIT_ON_CLOSE
+        setLocationRelativeTo(null)
         addKeyListener(this)
         panel.repaint()
         panel.revalidate()
