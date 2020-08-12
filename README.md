@@ -2,7 +2,7 @@
 
 ![](data/result.gif)
 
-Neural network learns to play flappy bird
+Neural network learns to play Flappy Bird.
 
 # References
 - [Thanks to @john525 for flappy bird starter code. I am not a good game developer :)](https://github.com/john525/Flappy-Bird-Clone)

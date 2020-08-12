@@ -48,10 +48,11 @@ class Context() {
         while (!lost && steps < maxSteps) {
             bird.update()
             if (steps % 90L == 0L) {
+                val pipeSpace = PIPE_SPACE +  random.nextInt(20) - 10
                 val topPipeHeight = random.nextInt(200 - 130 + 1) + 130
                 val topPipe = Rectangle(FIELD_WIDTH - PIPE_WIDTH, 0, PIPE_WIDTH, topPipeHeight)
 
-                val bottomPipe = Rectangle(topPipe.x, topPipe.y + topPipe.height + PIPE_SPACE, PIPE_WIDTH, FIELD_HEIGHT - (topPipe.y + topPipe.height + PIPE_SPACE))
+                val bottomPipe = Rectangle(topPipe.x, topPipe.y + topPipe.height + pipeSpace, PIPE_WIDTH, FIELD_HEIGHT - (topPipe.y + topPipe.height + pipeSpace))
                 pipes.add(Pair(topPipe, bottomPipe))
             }
 
