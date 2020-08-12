@@ -1,4 +1,4 @@
-package de.longuyen
+package de.longuyen.core
 
 interface Callback {
     fun callback()

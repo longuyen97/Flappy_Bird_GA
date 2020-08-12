@@ -1,47 +1,58 @@
-package de.longuyen
+package de.longuyen.core
 
+import de.longuyen.*
 import java.awt.Rectangle
 import java.util.*
 
+data class Result(val steps: Long, var fitness: Double)
 
-class Context () {
-    val bird: Bird = Bird()
-    val rectangles: ArrayList<Rectangle> = ArrayList()
 
-    fun run( callback: Callback) : Double{
+class Context() {
+    val bird = Bird()
+    val pipes = mutableListOf<Rectangle>()
+
+    fun run(random: Random, decisionMaker: DecisionMaker, callback: Callback, sleep: Long = 100): Result {
         var fitness = 0.0
         var steps = 0L
-        while (true){
-            bird.update()
+        var lost = false
+        while (!lost) {
             callback.callback()
+            if (decisionMaker.jump(this)) {
+                bird.jump()
+            }
+            bird.update()
             if (steps % 90L == 0L) {
-                val topPipe = Rectangle(WIDTH, 0, PIPE_W, (Math.random() * HEIGHT / 5f + 0.2f * HEIGHT).toInt())
-                val h2 = (Math.random() * HEIGHT / 5f + 0.2f * HEIGHT).toInt()
-                val bottomPipe = Rectangle(WIDTH, HEIGHT - h2, PIPE_W, h2)
-                rectangles.add(topPipe)
-                rectangles.add(bottomPipe)
+                val topPipeHeight = random.nextInt(170 - 100 + 1) + 70
+                val topPipe = Rectangle(FIELD_WIDTH - PIPE_WIDTH, 0, PIPE_WIDTH, topPipeHeight)
+
+                val bottomPipeHeight = FIELD_HEIGHT - (topPipeHeight + PIPE_SPACE)
+                val bottomPipe = Rectangle(FIELD_WIDTH - PIPE_WIDTH, bottomPipeHeight, PIPE_WIDTH, bottomPipeHeight)
+                pipes.add(topPipe)
+                pipes.add(bottomPipe)
             }
-            val toRemove = ArrayList<Rectangle>()
-            for (rect in rectangles) {
-                rect.x -= 3
-                if (rect.x + rect.width <= 0) {
-                    toRemove.add(rect)
+
+            val obsoletePipes = mutableListOf<Rectangle>()
+            for (pipe in pipes) {
+                pipe.x -= 3
+                if (pipe.x + pipe.width <= 0) {
+                    obsoletePipes.add(pipe)
                 }
-                if (rect.contains(bird.x.toInt(), bird.y.toInt())) {
-                    break
+                if (pipe.contains(bird.x.toInt(), bird.y.toInt())) {
+                    lost = true
                 }
             }
-            rectangles.removeAll(toRemove)
+            pipes.removeAll(obsoletePipes)
 
             fitness++
             steps++
-            if (bird.y > HEIGHT || bird.y + RAD < 0) {
-                break
+
+            if (bird.y > FIELD_HEIGHT || bird.y < 0) {
+                lost = true
             }
-            Thread.sleep((1000 / FPS).toLong())
+            Thread.sleep(sleep)
         }
-        rectangles.clear()
         bird.reset()
-        return fitness
+        pipes.clear()
+        return Result(steps, fitness)
     }
 }

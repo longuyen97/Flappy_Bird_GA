@@ -1,23 +1,13 @@
-package de.longuyen
+package de.longuyen.core
 
-import java.awt.Color
-import java.awt.Graphics
-import java.awt.Image
-import java.io.File
-import javax.imageio.ImageIO
-import kotlin.math.roundToInt
+import de.longuyen.FIELD_HEIGHT
+import de.longuyen.FIELD_WIDTH
 
 class Bird {
-    var x: Float = WIDTH / 2.toFloat()
-    var y: Float = HEIGHT / 2.toFloat()
+    var x: Float = FIELD_WIDTH / 2.toFloat()
+    var y: Float = FIELD_HEIGHT / 2.toFloat()
     private var velocityX = 0f
     private var velocityY = 0f
-    private var img: Image = ImageIO.read(File("data/bird.png"))
-
-    fun paint(g: Graphics) {
-        g.color = Color.BLACK
-        g.drawImage(img, (x - RAD).roundToInt(), (y - RAD).roundToInt(), 2 * RAD, 2 * RAD, null)
-    }
 
     fun update() {
         x += velocityX
@@ -30,9 +20,9 @@ class Bird {
     }
 
     fun reset() {
-        x = WIDTH / 2.toFloat()
-        y = WIDTH / 2.toFloat()
-        velocityY = 0f
+        x = FIELD_WIDTH / 2.toFloat()
+        y = FIELD_HEIGHT / 2.toFloat()
         velocityX = 0f
+        velocityY = 0f
     }
 }
