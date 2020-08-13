@@ -1,5 +1,11 @@
 # Genetic Flappy Bird
 
+# Results
+
+### Neural network with no hidden layer. Only an input layer and an output layer
+![](data/result.gif)
+
+### Neural network with one hidden layer. 
 ![](data/result-1.gif)
 
 Neural network learns to play Flappy Bird. The algorithm is simple:
