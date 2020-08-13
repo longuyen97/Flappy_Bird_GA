@@ -1,6 +1,6 @@
 # Genetic Flappy Bird
 
-![](data/result.gif)
+![](data/result-1.gif)
 
 Neural network learns to play Flappy Bird. The algorithm is simple:
 - Initialize a population of 15 birds. Each bird has a random brain with random parameters. A brain would look like following

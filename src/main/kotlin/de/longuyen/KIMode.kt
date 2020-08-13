@@ -24,7 +24,7 @@ fun main() {
                 override fun callback() {
                     gui.update(generation, max)
                 }
-            }, 1000 / 60)
+            }, 1000 / 120)
         }
     }
 }
