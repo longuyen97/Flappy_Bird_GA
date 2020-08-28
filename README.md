@@ -8,10 +8,10 @@ Each generation the fitness of a population of birds will be evaluated by how fa
 
 ## Results
 
-### Neural network with no hidden layer. Only an input layer and an output layer
+##### Neural network with no hidden layer. Only an input layer and an output layer
 ![](data/result.gif)
 
-### Neural network with one hidden layer. 
+##### Neural network with one hidden layer. 
 ![](data/result-1.gif)
 
 ---
