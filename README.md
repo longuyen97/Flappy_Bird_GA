@@ -8,10 +8,16 @@ Each generation the fitness of a population of birds will be evaluated by how fa
 
 ## Results
 
-##### Neural network with no hidden layer. Only an input layer and an output layer
+##### Neural network with no hidden layer. Only an input layer and an output layer.
+
+The brain capacity of each bird is very small and the population has great difficulty to learn to survive.
+
 ![](data/result.gif)
 
 ##### Neural network with one hidden layer. 
+
+With already one more brain layer, the fittest bird can already beats the game after a few generations, achieving the immortality status.
+
 ![](data/result-1.gif)
 
 ---
