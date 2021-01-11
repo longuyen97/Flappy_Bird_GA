@@ -1,7 +1,11 @@
 # Genetic Flappy Bird
 
-Hello, I spent another week of the sommer vacation to play around with Kotlin. In this project I used Kotlin to teach a network how to play Flappy Bird. The working principle is very simple.
+Hello, I spent another week of the sommer vacation to play around with Kotlin. In this project I used the language to teach a network how to play Flappy Bird. The working principle is very simple.
+
+First of all, tt would not be accurate to say that ONE neural network learned to play this game. A better description would be "Many neural networks attempt to play this game and I chose the best of them in each generation and let them reproduce". 
+
 Each generation the fitness of a population of birds will be evaluated by how far a bird can fly. The sensors of each birds give its brain information of the environment. 
+
 The brain itself returns control signal determines if the bird shall jump or not. Generations pass and the birds becoming better and better playing the game. 
 
 ---
