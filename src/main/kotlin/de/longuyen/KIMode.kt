@@ -14,17 +14,21 @@ fun main() {
     population.fitAndSort()
     var max = population.fittest().fitness
     var generation = 0
-    while(true) {
-        population.evolve()
-        population.fitAndSort()
-        if(population.fittest().fitness > max) {
-            generation += 1
-            max = population.fittest().fitness
-            context.run(Random(42), PredictiveNextMove(population.fittest()), object : Callback {
-                override fun callback() {
-                    gui.update(generation, max)
-                }
-            }, 1000 / 120)
+
+    val reader = Scanner(System.`in`)
+    if(reader.next().equals("play")) {
+        while (true) {
+            population.evolve()
+            population.fitAndSort()
+            if (population.fittest().fitness > max) {
+                generation += 1
+                max = population.fittest().fitness
+                context.run(Random(42), PredictiveNextMove(population.fittest()), object : Callback {
+                    override fun callback() {
+                        gui.update(generation, max)
+                    }
+                }, 1000 / 120)
+            }
         }
     }
 }
